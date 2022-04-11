@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Calcu.Forms
@@ -19,7 +12,7 @@ namespace Calcu.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            double dist = 0, averCons= 0, price = 0, fuelValue , tripcost ;
+            double dist = 0, averCons = 0, price = 0, fuelValue, tripcost;
             if (textBox1.Text != string.Empty)
                 dist = double.Parse(textBox1.Text);
             if (textBox2.Text != string.Empty)
@@ -36,24 +29,32 @@ namespace Calcu.Forms
                 textBox4.Text = "NaN";
                 textBox5.Text = "NaN";
             }
-            if (textBox1.Text != string.Empty & textBox2.Text != string.Empty & textBox3.Text != string.Empty)
+            else if (textBox1.Text != string.Empty & textBox2.Text != string.Empty & textBox3.Text != string.Empty)
             {
-                textBox4.Text = fuelValue.ToString().Substring(0,4);
-                textBox5.Text = tripcost.ToString().Substring(0, 4);
+               if(fuelValue.ToString().Length >=4 & tripcost.ToString().Length >= 4)
+                {
+                    textBox4.Text = fuelValue.ToString().Substring(0,5);
+                    textBox5.Text = tripcost.ToString().Substring(0,5);
+                }
+               else
+                {
+                    textBox4.Text = fuelValue.ToString();
+                    textBox5.Text = tripcost.ToString();
+                }
             }
-            if (textBox1.Text == string.Empty & textBox2.Text == string.Empty & textBox3.Text == string.Empty)
+            else if (textBox1.Text == string.Empty & textBox2.Text == string.Empty & textBox3.Text == string.Empty)
             {
                 textBox4.Text = "NaN";
                 textBox5.Text = "NaN";
             }
-            if (textBox1.Text == string.Empty || textBox2.Text == string.Empty)
+            else if (textBox1.Text == string.Empty || textBox2.Text == string.Empty)
             {
                 textBox4.Text = "NaN";
                 textBox5.Text = "NaN";
             }
-            if (textBox3.Text == string.Empty)
+            else if (textBox3.Text == string.Empty)
             {
-                textBox4.Text = fuelValue.ToString().Substring(0, 4);
+                textBox4.Text = fuelValue.ToString().Substring(0, 5);
                 textBox5.Text = "NaN";
             }
 
@@ -74,8 +75,10 @@ namespace Calcu.Forms
                 textBox7.Text = "Введите число больше нуля!";
                 label17.Text = "Ошибка!";
             }
+            else if(averCons.ToString().Length >= 4)
+                label17.Text = $"Расход топлива вашего авто составляет {averCons.ToString().Substring(0, 5)} литров на 100 км.";
             else
-                label17.Text = $"Расход топлива вашего авто составляет {averCons.ToString().Substring(0, 4)} литров на 100 км.";
+                label17.Text = $"Расход топлива вашего авто составляет {averCons} литров на 100 км.";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -94,8 +97,11 @@ namespace Calcu.Forms
                 textBox8.Text = "Введит ечисло больше нуля";
                 label23.Text = "Ошибка!";
             }
+            else if(dist.ToString().Length >=4)
+                label23.Text = $"Вы сможете проехать {dist.ToString().Substring(0, 5)} км.";
             else
-                label23.Text = $"Вы сможете проехать {dist.ToString().Substring(0,4)} км.";
+                label23.Text = $"Вы сможете проехать {dist} км.";
+
         }
     }
 }
